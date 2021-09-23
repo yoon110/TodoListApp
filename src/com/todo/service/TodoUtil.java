@@ -1,13 +1,15 @@
 package com.todo.service;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
-import java.util.*;
+import java.util.Scanner;
+import java.util.StringTokenizer;
 
 import com.todo.dao.TodoItem;
 import com.todo.dao.TodoList;
@@ -42,8 +44,7 @@ public class TodoUtil {
 		Scanner sc = new Scanner(System.in);
 		String title = sc.next();
 		
-		System.out.println("\n"
-				+ "< 일정 삭제 >\n"
+		System.out.println("< 일정 삭제 >\n"
 				+ "삭제할 일정 제목 입력 >");
 		
 		for (TodoItem item : l.getList()) {
@@ -96,33 +97,35 @@ public class TodoUtil {
 	}
 	
 	public static void saveList(TodoList l, String filename) {
-		Writer w;
+        FileWriter writer;
 		try {
-			w = new FileWriter(filename);
-			for (TodoItem item : l.getList()) {
-				w.write(item.toSaveString());
-			}
-			w.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			writer = new FileWriter(filename);
+			for(TodoItem item:l.getList()) {
+	        	writer.write(item.toSaveString());
+	        }
+			 writer.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
-		
+		}
+        
 	}
 	
 	public static void loadList(TodoList l, String filename) {
 		try {
 			Reader r = new FileReader(filename);
+			@SuppressWarnings("resource")
 			BufferedReader b =new BufferedReader (r);
 			
 			String line ="";
 			while((line = b.readLine()) != null){
-				  StringTokenizer st = new StringTokenizer(line ,"\n");
-				  for (TodoItem item : l.getList()) {
-						System.out.println(item.toString());
-					}
+				  StringTokenizer st = new StringTokenizer(line,"##");
+				  String title = st.nextToken();
+				  String desc = st.nextToken();
+				  String date = st.nextToken();
+				  TodoItem item=new TodoItem(title, desc);
+				  item.setCurrent_date(date);
+				  System.out.println(item.toSaveString());
 			}
 		} catch (IOException e) {
 				// TODO Auto-generated catch block
