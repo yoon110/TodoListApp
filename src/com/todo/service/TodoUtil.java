@@ -20,17 +20,16 @@ public class TodoUtil {
 		
 		String title, desc;
 		Scanner sc = new Scanner(System.in);
-		
+		sc.nextLine();
 		System.out.println("\n"
 				+ "< 일정 추가 >\n"
 				+ "제목 입력 > ");
 		
-		title = sc.next();
+		title = sc.nextLine().trim();
 		if (list.isDuplicate(title)) {
 			System.out.printf("이미 존재하는 일정입니다.");
 			return;
 		}
-		sc.nextLine();
 		System.out.println("내용 입력 > ");
 		desc = sc.nextLine().trim();
 		
@@ -60,18 +59,18 @@ public class TodoUtil {
 	public static void updateItem(TodoList l) {
 		
 		Scanner sc = new Scanner(System.in);
-		
+		sc.nextLine();
 		System.out.println("\n"
 				+ "< 일정 편집 >\n"
 				+ "편집할 일정 제목 입력 >");
-		String title = sc.next().trim();
+		String title = sc.nextLine().trim();
 		if (!l.isDuplicate(title)) {
 			System.out.println("존재하지 않는 일정입니다.");
 			return;
 		}
 
 		System.out.println("새로운 제목 입력 > ");
-		String new_title = sc.next().trim();
+		String new_title = sc.nextLine().trim();
 		if (l.isDuplicate(new_title)) {
 			System.out.println("이미 존재하는 일정의 제목입니다.");
 			return;
