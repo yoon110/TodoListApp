@@ -16,7 +16,7 @@ public class TodoList {
 		list.add(t);
 	}
 
-	public void deleteItem(TodoItem t) {
+	public void deleteItem(int t) {
 		list.remove(t);
 	}
 
@@ -37,7 +37,7 @@ public class TodoList {
 
 	public void listAll() {
 		for (TodoItem myitem : list) {
-			System.out.println(myitem.getTitle() + myitem.getDesc());
+			System.out.println(myitem.toString());
 		}
 	}
 	

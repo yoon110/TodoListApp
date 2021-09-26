@@ -20,6 +20,7 @@ public class TodoMain {
 			Menu.prompt();
 			isList = false;
 			String choice = sc.next();
+			sc.nextLine();
 			switch (choice) {
 
 			case "add":
@@ -58,7 +59,26 @@ public class TodoMain {
 				isList = true;
 				break;
 				
-			case "menu":
+			case "ls_date_desc":
+				System.out.println("< 날짜 역순으로 목록 정렬 >");
+				l.sortByDate();
+				l.reverseList();
+				isList = true;
+				break;
+				
+			case "ls_cate":
+				TodoUtil.listCate(l);
+				break;
+				
+			case "find":
+				TodoUtil.findKey(l);
+				break;
+				
+			case "find_cate":
+				TodoUtil.findCate(l);
+				break;
+				
+			case "help":
 				Menu.displaymenu();
 				break;
 
@@ -67,12 +87,13 @@ public class TodoMain {
 				break;
 				
 			default:
-				System.out.println("정확한 명령어를 입력해주세요. (명령어 메뉴 - menu)");
+				System.out.println("정확한 명령어를 입력해주세요. (명령어 메뉴 - help)");
 				break;
 			}
 			
 			if(isList) l.listAll();
 		} while (!quit);
+		sc.close();
 		TodoUtil.saveList(l, "todoList.txt");
 	}
 }
